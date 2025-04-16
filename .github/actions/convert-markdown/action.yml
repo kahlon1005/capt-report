@@ -10,5 +10,5 @@ runs:
   steps:
     - run: |
         javac src/MarkdownToDocxConverter.java
-        java -cp src MarkdownToDocxConverter ${{ inputs.markdown_file }}
+        java -cp src MarkdownToDocxConverter ${{ inputs.input_file }} ${{ inputs.output_file }}
       shell: bash
