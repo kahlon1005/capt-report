@@ -1,5 +1,5 @@
 name: Convert Markdown to DOCX
-
+description: 'Convert Markdown files to DOCX format using Apache Maven and Java'
 inputs:
   input_file:
     description: 'Markdown input file'
