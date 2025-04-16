@@ -10,17 +10,15 @@ inputs:
 
 runs:
   using: "composite"
-  steps:
-    - name: Check Java file exists
-      run: ls -l capt-report/src/main/java/com/github/roche/capt/report/MarkdownToDocxConverter.java
+  steps:  
+      - name: Build with Maven
+      run: |
+        cd capt-report
+        mvn clean compile
       shell: bash
       
-    - name: Compile Java class with package
-      run: |
-        javac -d out capt-report/src/main/java/com/github/roche/capt/report/MarkdownToDocxConverter.java
-      shell: bash
-
     - name: Run converter
       run: |
-        java -cp out com.github.roche.capt.report.MarkdownToDocxConverter "${{ inputs.input_file }}" "${{ inputs.output_file }}"
+        cd capt-report
+        mvn exec:java -Dexec.mainClass="com.github.roche.capt.report.MarkdownToDocxConverter" -Dexec.args="${{ inputs.input_file }} ${{ inputs.output_file }}"
       shell: bash
