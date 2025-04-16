@@ -11,10 +11,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Compile Java class
-      run: javac src/MarkdownToDocxConverter.java
+    - name: Compile Java class with package
+      run: |
+        javac -d out src/com/github/roche/capt/report/MarkdownToDocxConverter.java
       shell: bash
 
     - name: Run converter
-      run: java -cp src MarkdownToDocxConverter "${{ inputs.input_file }}" "${{ inputs.output_file }}"
+      run: |
+        java -cp out com.github.roche.capt.report.MarkdownToDocxConverter "${{ inputs.input_file }}" "${{ inputs.output_file }}"
       shell: bash
