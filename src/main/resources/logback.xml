@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- Log everything less than a warning to STDOUT -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+		</filter>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+		</filter>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>TRACE</level>
+			<onMatch>ACCEPT</onMatch>
+		</filter>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>DENY</onMatch>
+		</filter>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>DENY</onMatch>
+		</filter>
+		<encoder><pattern>%d{ISO8601} [%thread] %-5level %logger{40} - %msg%n</pattern></encoder>
+	</appender>
+	<!-- Log everything warning or more to STDERR -->
+	<appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.err</target>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>WARN</level></filter>
+		<encoder><pattern>%d{ISO8601} [%thread] %-5level %logger{40} - %msg%n</pattern></encoder>
+	</appender>
+	
+	<timestamp key="tsDay" datePattern="yyyy-MM-dd"/>
+	<timestamp key="tsTime" datePattern="HHmmss"/>
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>capt-log/${tsDay}/${tsTime}.log</file>
+		<append>true</append>
+		<encoder><pattern>%d{ISO8601} [%thread] %-5level %logger{40} - %msg%n</pattern></encoder>
+	</appender>
+
+	<root level="info">
+		<appender-ref ref="STDERR" />
+		<appender-ref ref="FILE"/>
+	</root>
+</configuration>

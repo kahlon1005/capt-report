@@ -1,0 +1,14 @@
+name: "Convert Markdown to DOCX"
+description: "Compiles and runs MarkdownToDocxConverter with an input .md file"
+inputs:
+  markdown_file:
+    description: "Path to the .md file"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        javac src/MarkdownToDocxConverter.java
+        java -cp src MarkdownToDocxConverter ${{ inputs.markdown_file }}
+      shell: bash
