@@ -1,14 +1,20 @@
-name: "Convert Markdown to DOCX"
-description: "Compiles and runs MarkdownToDocxConverter with an input .md file"
+name: Convert Markdown to DOCX
+
 inputs:
-  markdown_file:
-    description: "Path to the .md file"
+  input_file:
+    description: 'Markdown input file'
+    required: true
+  output_file:
+    description: 'Output DOCX file'
     required: true
 
 runs:
   using: "composite"
   steps:
-    - run: |
-        javac src/MarkdownToDocxConverter.java
-        java -cp src MarkdownToDocxConverter ${{ inputs.input_file }} ${{ inputs.output_file }}
+    - name: Compile Java class
+      run: javac src/MarkdownToDocxConverter.java
+      shell: bash
+
+    - name: Run converter
+      run: java -cp src MarkdownToDocxConverter "${{ inputs.input_file }}" "${{ inputs.output_file }}"
       shell: bash
