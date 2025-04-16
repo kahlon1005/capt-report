@@ -10,13 +10,13 @@ inputs:
 
 runs:
   using: "composite"
-  steps:  
-      - name: Build with Maven
+  steps:
+    - name: Build with Maven
       run: |
         cd capt-report
         mvn clean compile
       shell: bash
-      
+
     - name: Run converter
       run: |
         cd capt-report
