@@ -11,21 +11,17 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: List all files
-      run: ls -l
-      shell: bash
-  
     - name: List contents of capt-report directory
       run: ls -R capt-report
       shell: bash
       
     - name: Check Java file exists
-      run: ls -l capt-report/src/com/github/roche/capt/report/MarkdownToDocxConverter.java
+      run: ls -l capt-report/src/main/java/com/github/roche/capt/report/MarkdownToDocxConverter.java
       shell: bash
       
     - name: Compile Java class with package
       run: |
-        javac -d out src/com/github/roche/capt/report/MarkdownToDocxConverter.java
+        javac -d out src/main/java/com/github/roche/capt/report/MarkdownToDocxConverter.java
       shell: bash
 
     - name: Run converter
